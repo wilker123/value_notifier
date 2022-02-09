@@ -1,61 +1,61 @@
-import 'package:app_value_notifier/products/states/product_state.dart';
-import 'package:app_value_notifier/products/stores/product_store.dart';
+import 'package:app_value_notifier/products/services/products_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:uno/uno.dart';
-
-import 'services/products_services.dart';
+import 'states/product_state.dart';
+import 'stores/product_store.dart';
 
 class ProductPage extends StatefulWidget {
-  ProductPage({Key? key}) : super(key: key);
+  const ProductPage({Key? key}) : super(key: key);
 
   @override
-  State<ProductPage> createState() => _ProductPageState();
+  _ProductPageState createState() => _ProductPageState();
 }
 
 class _ProductPageState extends State<ProductPage> {
-  final store = ProductStore(ProductsService(Uno()));
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    store.fetchProducts();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      context.read<ProductStore>().fetchProducts();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final store = context.watch<ProductStore>();
+    final state = store.value;
+    Widget? child;
+
+    if (state is LoadingProductState) {
+      child = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (state is ErrorProductState) {
+      child = Center(
+        child: Text(state.message),
+      );
+    }
+
+    if (state is SucessProductState) {
+      child = ListView.builder(
+        itemCount: state.products.length,
+        itemBuilder: (context, index) {
+          final products = state.products[index];
+          return ListTile(
+            title: Text(products.title),
+          );
+        },
+      );
+    }
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Product Page"),
-        ),
-        body: ValueListenableBuilder(
-          valueListenable: store,
-          builder: (context, state, child) {
-            if (state is LoadingProductState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (state is ErrorProductState) {
-              return Center(
-                child: Text(state.message),
-              );
-            }
-
-            if (state is SucessProductState) {
-              return ListView.builder(
-                itemCount: state.products.length,
-                itemBuilder: (_, index) {
-                  final product = state.products[index];
-                  return ListTile(
-                    title: Text("${product.title}"),
-                  );
-                },
-              );
-            }
-            return Container();
-          },
-        ));
+      appBar: AppBar(
+        title: const Text("Reatividade com Value Notifier!"),
+      ),
+      body: child ?? Container(),
+    );
   }
 }
