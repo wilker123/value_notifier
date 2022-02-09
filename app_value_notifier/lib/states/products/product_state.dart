@@ -1,4 +1,4 @@
-import 'package:app_value_notifier/products/models/product_model.dart';
+import 'package:app_value_notifier/models/products/product_model.dart';
 
 abstract class ProductState {}
 
@@ -17,3 +17,4 @@ class ErrorProductState extends ProductState {
 }
 
 // Inicial, Sucess, Error, Loading
+//Agora vou praticar valueNotifier - Crud com Value Notifier

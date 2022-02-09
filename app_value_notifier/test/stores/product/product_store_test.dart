@@ -1,6 +1,6 @@
-import 'package:app_value_notifier/products/services/products_services.dart';
-import 'package:app_value_notifier/products/states/product_state.dart';
-import 'package:app_value_notifier/products/stores/product_store.dart';
+import 'package:app_value_notifier/services/products/products_services.dart';
+import 'package:app_value_notifier/states/product_states/product_state.dart';
+import 'package:app_value_notifier/stores/product_stores/product_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:value_listenable_test/value_listenable_test.dart';
@@ -12,7 +12,7 @@ void main() {
   final store = ProductStore(service);
 
   test("Deve alterar estado para sucesso", () async {
-    when(() => service.fetchProducts()).thenAnswer((_) async => []);
+    when(() => service.fetchProductsService()).thenAnswer((_) async => []);
 
     expect(
       store,
@@ -27,7 +27,7 @@ void main() {
   });
 
   test("deve alterar o estado para error", () async {
-    when(() => service.fetchProducts()).thenThrow(Exception("Error"));
+    when(() => service.fetchProductsService()).thenThrow(Exception("Error"));
 
     expect(
       store,

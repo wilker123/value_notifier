@@ -1,4 +1,4 @@
-import 'package:app_value_notifier/products/models/product_model.dart';
+import 'package:app_value_notifier/models/products/product_model.dart';
 import 'package:uno/uno.dart';
 
 class ProductsService {
@@ -6,7 +6,7 @@ class ProductsService {
 
   ProductsService(this.uno);
 
-  Future<List<ProductModel>> fetchProducts() async {
+  Future<List<ProductModel>> fetchProductsService() async {
     final response = await uno.get("http://10.0.2.2:3031/products");
     final list = response.data as List;
 

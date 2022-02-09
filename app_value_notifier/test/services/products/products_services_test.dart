@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:app_value_notifier/products/services/products_services.dart';
+import 'package:app_value_notifier/services/products/products_services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:uno/uno.dart';
@@ -22,7 +21,7 @@ void main() {
         request: RequestMock(),
       ),
     );
-    final products = await service.fetchProducts();
+    final products = await service.fetchProductsService();
     expect(products[0].title, 'Flutter 2');
   });
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uno/uno.dart';
-
-import 'products/product_page.dart';
-import 'products/services/products_services.dart';
-import 'products/stores/product_store.dart';
+import 'services/products/products_services.dart';
+import 'stores/product_stores/product_store.dart';
+import 'views/products/product_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

@@ -1,6 +1,5 @@
-import 'package:app_value_notifier/products/models/product_model.dart';
-import 'package:app_value_notifier/products/services/products_services.dart';
-import 'package:app_value_notifier/products/states/product_state.dart';
+import 'package:app_value_notifier/services/products/products_services.dart';
+import 'package:app_value_notifier/states/product_states/product_state.dart';
 import 'package:flutter/material.dart';
 
 class ProductStore extends ValueNotifier<ProductState> {
@@ -10,9 +9,9 @@ class ProductStore extends ValueNotifier<ProductState> {
 
   Future fetchProducts() async {
     value = LoadingProductState();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     try {
-      final products = await service.fetchProducts();
+      final products = await service.fetchProductsService();
       value = SucessProductState(products);
     } catch (e) {
       value = ErrorProductState(e.toString());

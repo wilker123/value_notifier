@@ -1,9 +1,9 @@
-import 'package:app_value_notifier/products/services/products_services.dart';
+import 'package:app_value_notifier/states/product_states/product_state.dart';
+import 'package:app_value_notifier/stores/product_stores/product_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:uno/uno.dart';
-import 'states/product_state.dart';
-import 'stores/product_store.dart';
+
+import 'form_post_product.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -51,9 +51,25 @@ class _ProductPageState extends State<ProductPage> {
         },
       );
     }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reatividade com Value Notifier!"),
+        title: const Text("Value Notifier!"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => FormPostProduct(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.add,
+            ),
+          ),
+        ],
       ),
       body: child ?? Container(),
     );
