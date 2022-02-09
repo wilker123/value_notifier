@@ -7,7 +7,7 @@ class ProductsService {
   ProductsService(this.uno);
 
   Future<List<ProductModel>> fetchProducts() async {
-    final response = await uno.get("http://localhost:3031/products");
+    final response = await uno.get("http://10.0.2.2:3031/products");
     final list = response.data as List;
 
     final products = list.map((e) => ProductModel.fromMap(e)).toList();
